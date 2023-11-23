@@ -1,8 +1,10 @@
 package mao.openofficewordtopdf.service.impl;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import mao.openofficewordtopdf.service.DocumentConverterService;
 import org.jodconverter.core.DocumentConverter;
+import org.jodconverter.core.document.DocumentFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +33,33 @@ public class DocumentConverterServiceImpl implements DocumentConverterService
     @Autowired
     private DocumentConverter documentConverter;
 
+    @SneakyThrows
     @Override
     public void converter(String sourcePath, String targetPath)
     {
-
+        documentConverter.convert(new File(sourcePath)).to(new File(targetPath)).execute();
     }
 
+    @SneakyThrows
     @Override
     public void converter(File sourcePath, File targetPath)
     {
-
+        documentConverter.convert(sourcePath).to(targetPath).execute();
     }
 
+    @SneakyThrows
     @Override
     public void converter(InputStream inputStream, OutputStream outputStream, String sourceFileSuffix, String targetFileSuffix)
     {
-
+        DocumentFormat sourceDocumentFormat = documentConverter.getFormatRegistry()
+                .getFormatByExtension(sourceFileSuffix);
+        DocumentFormat targetDocumentFormat = documentConverter.getFormatRegistry()
+                .getFormatByExtension(targetFileSuffix);
+        documentConverter
+                .convert(inputStream)
+                .as(sourceDocumentFormat)
+                .to(outputStream)
+                .as(targetDocumentFormat)
+                .execute();
     }
 }
