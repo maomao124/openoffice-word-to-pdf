@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<!--
+Project name(项目名称)：openoffice-word-to-pdf
+  File name(文件名): index
+  Authors(作者）: mao
+  Author QQ：1296193245
+  GitHub：https://github.com/maomao124/
+  Date(创建日期)： 2023/11/23
+  Time(创建时间)： 9:22
+  Description(描述)： 无
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文档转换服务</title>
+</head>
+<body>
+<form id="from" enctype="multipart/form-data" onsubmit="return check()" method="post" action="/api/converter/docx/pdf">
+    <input type="file" name="file">
+    <input type="submit" name="提交">
+</form>
+
+<br>
+<input id="p1" type="text" placeholder="输入的文件后缀名">
+<br>
+<input id="p2" type="text" placeholder="输出的文件后缀名">
+
+<script>
+
+    function check()
+    {
+        var from = document.getElementById("from")
+        var p1 = document.getElementById("p1").value
+        var p2 = document.getElementById("p2").value
+        from.action = '/api/converter/' + p1 + '/' + p2;
+        return true;
+    }
+</script>
+</body>
+</html>

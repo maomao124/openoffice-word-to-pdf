@@ -6,3 +6,6 @@ jodconverter:
     max-tasks-per-process: 64
     #openoffice端口号
     port-numbers: 8100
+
+server:
+  port: 8090

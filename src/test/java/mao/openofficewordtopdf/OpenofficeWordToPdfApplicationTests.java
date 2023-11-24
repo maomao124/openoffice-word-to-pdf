@@ -72,12 +72,9 @@ class OpenofficeWordToPdfApplicationTests
         DocumentFormat documentFormatSrc = documentConverter.getFormatRegistry().getFormatByExtension("docx");
         DocumentFormat documentFormatTarget = documentConverter.getFormatRegistry().getFormatByExtension("pdf");
         documentConverter.convert(
-                new FileInputStream(new File("./test.docx")))
+                        new FileInputStream(new File("./test.docx")))
                 .as(documentFormatSrc)
                 .to(new FileOutputStream("./test.pdf"))
                 .as(documentFormatTarget).execute();
-
-        //response.setContentType("application/application");
-        //response.setHeader("Content-disposition", "attachment;filename="+new String("example.a.pdf".getBytes("iso-8859-1")));
     }
 }
